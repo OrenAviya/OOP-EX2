@@ -1,6 +1,5 @@
-package ex2;
+package ex2.part_2;
 
-import java.util.*;
 import java.util.concurrent.*;
 
 public class  CustomExecutor <T> extends ThreadPoolExecutor  {
@@ -44,7 +43,7 @@ public class  CustomExecutor <T> extends ThreadPoolExecutor  {
      * @param taskType the type , included the priority
      * @return the Future<T> object , means the result of the Task that was submitted
      */
-    public Future<T> submit(Callable task,TaskType taskType){
+    public Future<T> submit(Callable task, TaskType taskType){
         Callable t = Task.createTask(task,taskType);
         return submit((Task)t);
     }
@@ -75,14 +74,14 @@ public class  CustomExecutor <T> extends ThreadPoolExecutor  {
         }
 
     /**
-     *
+     *this function Updates the set of priorities so that he continues to remember which priorities of tasks he has left
      * @param thread the thread that will run task {@code r}
      * @param run the task that will be executed
      */
     @Override
     protected void beforeExecute(Thread thread, Runnable run) {
         int priority = getCurrentMax();
-        if (1<=priority && priority<=3)
+        if (1<=priority && priority<=10)
             arr[priority-1]--;
     }
 
@@ -97,9 +96,9 @@ public class  CustomExecutor <T> extends ThreadPoolExecutor  {
     protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
         int priority = getCurrentMax();
         TaskType type = TaskType.IO;
-        if (1<=priority && priority<=3)
+        if (1<=priority && priority<=10)
             type.setPriority(priority);
-        return Task.createTask(callable, type);
+        return Task.createTask(callable ,type);
     }
 
     /**
@@ -117,24 +116,4 @@ public class  CustomExecutor <T> extends ThreadPoolExecutor  {
     }
 
 }
- /* @Override
-    protected void beforeExecute(Thread t, Runnable r) {
-
-        Callable<Task> callable = new Adapter(r);
-        //Future<Task> future = executor.submit(callable);
-          //Task g=new Task();
-        Task task = Task.createTask(callable , ((Task) callable).getType());
-        arr[task.getPriority()]--;
-
-        //     Task h = ;
-
-*/
-
-
-    /*
-    public static <T> Callable<T> callable(Runnable task) {
-        if (task == null)
-            throw new NullPointerException();
-        return new Adapter(task);
-    }*/
-
+ 
