@@ -76,4 +76,7 @@ We used the idea of an adapter (which we learned with design patterns) but inste
 
 You will see it in our CustomExecutor class, it's called "newTaskFor"
 to test our project we use the tests in "test" class
+ 
+  ![diagram b](https://user-images.githubusercontent.com/98823130/212156700-999ee968-b2f8-44e7-80f2-f82c5c2576a5.png)
+
 
