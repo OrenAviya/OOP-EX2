@@ -1,14 +1,17 @@
 package ex2;
-import java.io.*;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ThreadPoolExecutor;
 
 
 public class Ex2_1 {
@@ -114,7 +117,6 @@ public class Ex2_1 {
 	 * @return The total number of lines of the files.
 	 */
 	public static int getNumOfLinesThreadPool(String[] fileNames){
-		myThreadCallable [] numThreads =new myThreadCallable[fileNames.length];
 
 		ExecutorService excecutor = Executors.newFixedThreadPool(fileNames.length);
 
@@ -123,8 +125,8 @@ public class Ex2_1 {
 		ArrayList<Future<Integer>> futures = new ArrayList<Future<Integer>> ();
 
 		for (int i=0 ; i<fileNames.length ; i++) {
-			numThreads[i] = new myThreadCallable(fileNames[i]);
-			futures.add( excecutor.submit(numThreads[i]));
+
+			futures.add( excecutor.submit(new myThreadCallable(fileNames[i])));
 		}
 		try {
 			      // Block and wait for the result of the computation
@@ -140,7 +142,7 @@ public class Ex2_1 {
 		}
 		
 	public static void main(String[] args) {
-		String [] fileNames = createTextFiles(100 , 50 ,1000);
+		String [] fileNames = createTextFiles(300 , 50 ,1000);
 		
 //		Ex2_1 x = new Ex2_1();
 		
