@@ -43,6 +43,9 @@ The reason that using a regular thread is faster than the function that calculat
 
 the methods are in "EX2_1" class , yiu can run them there...
 
+![diagram a](https://user-images.githubusercontent.com/98823130/212137662-30c7b67e-1df6-4b11-b124-a38354145e17.png)
+
+
 ## part 2 : 
 background
 In Java, there is no built-in option to give priority to an asynchronous task (a task that will be executed in a separate thread).
