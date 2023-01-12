@@ -71,6 +71,6 @@ but the The challenge here is that the priority queue that supports threadpool o
 What we needed was something that would bridge the callable task and what entered the priority queue - which would be of the runnable type
 We used the idea of an adapter (which we learned with design patterns) but instead of creating a new class to bridge, we created an action that accepts a task of callable type and returns the same task only of runnable type so that it can enter the queue.
 
-You will see it in our _____ class
-
+You will see it in our CustomExecutor class, it's called "newTaskFor"
+to test our project we use the tests in "test" class
 
