@@ -1,4 +1,4 @@
-package ex2;
+package ex2.part_1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -86,7 +86,7 @@ public class Ex2_1 {
 	 */
 	public static int getNumOfLinesThreads(String[] fileNames){
 		
-		myThread [] numThreads =new myThread[fileNames.length];
+		myThread[] numThreads =new myThread[fileNames.length];
 		int sum =0; 
 		
 		for (int i=0 ; i<fileNames.length; i++) {
@@ -121,22 +121,21 @@ public class Ex2_1 {
 		ExecutorService excecutor = Executors.newFixedThreadPool(fileNames.length);
 
 		int result =0;
-
 		ArrayList<Future<Integer>> futures = new ArrayList<Future<Integer>> ();
 
 		for (int i=0 ; i<fileNames.length ; i++) {
 
-			futures.add( excecutor.submit(new myThreadCallable(fileNames[i])));
+			futures.add(excecutor.submit(new myThreadCallable(fileNames[i])));
 		}
-		try {
-			      // Block and wait for the result of the computation
-			for (Future<Integer> future : futures) {
+
+		for (Future<Integer> future : futures) {
+			try {
+				// Block and wait for the result of the computation
 				result += future.get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
 			}
-			}
-			catch (InterruptedException | ExecutionException e) {
-			      e.printStackTrace();
-			    }
+		}
 		excecutor.shutdown();
 		return(result);
 		}
@@ -148,17 +147,17 @@ public class Ex2_1 {
 		
 		
 		Long startTime = System.currentTimeMillis();
-		System.out.println("TotalLines symple: "+ getNumOfLines(fileNames));
+		System.out.println("TotalLines: "+ getNumOfLines(fileNames));
 		Long endTime = System.currentTimeMillis();
 		System.out.println("the time of the regular function: "+ (endTime- startTime));
 		
 		Long startTime1 = System.currentTimeMillis();
-		System.out.println("TotalLines symple: "+ getNumOfLinesThreads(fileNames));
+		System.out.println("TotalLines: "+ getNumOfLinesThreads(fileNames));
 		Long endTime1 = System.currentTimeMillis();
 		System.out.println("the time of the thread function: "+ (endTime1- startTime1));
 		
 		Long startTime2 = System.currentTimeMillis();
-		System.out.println("TotalLines symple: "+ getNumOfLinesThreadPool(fileNames));
+		System.out.println("TotalLines: "+ getNumOfLinesThreadPool(fileNames));
 		Long endTime2 = System.currentTimeMillis();
 		System.out.println("the time of the threadpool function: "+ (endTime2- startTime2));
 		
